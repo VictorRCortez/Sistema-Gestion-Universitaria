@@ -1,0 +1,79 @@
+body {
+  margin: 0;
+  font-family: 'Segoe UI', sans-serif;
+  background: linear-gradient(to bottom, #0a2e57, #1976d2);
+  color: white;
+  text-align: center;
+}
+
+.contenedor {
+  padding: 30px;
+}
+
+.encabezado .logo {
+  width: 150px;
+  margin-bottom: 10px;
+}
+
+.encabezado h2 {
+  margin: 10px 0 30px;
+  font-size: 27px;
+}
+
+.opciones {
+  display: flex;
+  justify-content: center;
+  gap: 50px;
+  margin-bottom: 30px;
+  flex-wrap: wrap;
+}
+
+.opcion a,
+.opcion a:visited,
+.opcion a:hover,
+.opcion a:active {
+  color: white;
+  text-decoration: none;
+}
+
+
+.opcion {
+  background-color: rgba(255, 255, 255, 0.1);
+  padding: 20px;
+  border-radius: 12px;
+  width: 280px;
+  backdrop-filter: blur(5px);
+  transition: transform 0.3s;
+}
+
+.opcion:hover {
+  transform: scale(1.05);
+  cursor: pointer;
+  
+}
+
+.opcion a:hover{
+  text-decoration: none;
+}
+
+.icono {
+  font-size: 45px;
+  margin-bottom: 10px;
+  display: block;
+}
+
+.acciones .link {
+  color: #cce5ff;
+  margin: 0 10px;
+  display: inline-block;
+  text-decoration: underline;
+}
+
+.acciones .link:hover {
+  text-decoration: underline;
+}
+
+footer {
+  margin-top: 115px;
+  font-size: 23px;
+}

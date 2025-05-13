@@ -21,7 +21,7 @@ app.register_blueprint(announcements_bp)
 @app.route('/')
 def index():
     """Redirige a la página de login."""
-    return redirect(url_for('auth.login')) # Redirige a la ruta 'login' dentro del blueprint 'auth'
+    return redirect(url_for('auth.main')) # Redirige a la ruta 'login' dentro del blueprint 'auth'
 
 # añadir más rutas si es necesario acá
 

@@ -4,6 +4,10 @@ from database import execute_stored_procedure
 # Crear un Blueprint para las rutas de autenticación
 auth_bp = Blueprint('auth', __name__)
 
+@auth_bp.route('/main')
+def main():
+    return render_template('main.html')
+
 @auth_bp.route('/login', methods=['GET', 'POST'])
 def login():
     """Maneja el login de usuarios."""

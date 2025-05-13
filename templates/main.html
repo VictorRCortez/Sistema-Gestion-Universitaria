@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="es">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Selecció de usuario</title>
+		<!-- Material Icons Outlined -->
+		<link
+			href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined"
+			rel="stylesheet"
+		/>
+		<!-- Material Icons Filled -->
+		<link
+			href="https://fonts.googleapis.com/icon?family=Material+Icons"
+			rel="stylesheet"
+		/>
+		<link
+			rel="stylesheet"
+			href="{{ url_for('static', filename='css/style_main.css') }}"
+		/>
+	</head>
+	<body>
+		<div class="contenedor">
+			<div class="encabezado">
+				<img
+				src=https://upload.wikimedia.org/wikipedia/commons/thumb/1/15/Escudo_de_la_universidad_Mariano_G%C3%A1lvez_Guatemala.svg/2048px-Escudo_de_la_universidad_Mariano_G%C3%A1lvez_Guatemala.svg.png
+				alt="logo universidad" class="logo" />
+				<h2>Selecciona tipo de usuario</h2>
+			</div>
+			<div class="opciones">
+				<div class="opcion">
+					<a href="{{url_for('auth.login') }}">
+						<span class="material-icons-outlined icono">account_circle</span>
+						<h3>Estudiante / Catedrático</h3>
+						<p>Acceso para estudiantes y catedráticos de la Universidad</p>
+					</a>
+				</div>
+				<div class="opcion">
+					<a href="{{ url_for('auth.login') }}">
+						<span class="material-icons icono">account_circle</span>
+						<h3>Administrativo</h3>
+						<p>Acceso para personal Administrativos</p>
+					</a>
+				</div>
+			</div>
+			<footer>
+				<p>© 2025 Universidad</p>
+			</footer>
+		</div>
+	</body>
+</html>
