@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guardar Curso - Gestión Universitaria</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h2>Guardar Curso</h2>
+        <nav>
+            <a href="{{ url_for('admin.admin_dashboard') }}">Volver al Dashboard Admin</a>
+            <a href="{{ url_for('auth.logout') }}">Cerrar Sesión</a>
+        </nav>
+        <hr>
+        <form method="POST" action="{{ url_for('admin.admin_save_course') }}">
+            <div>
+                <label for="materia_id">Materia:</label>
+                <select id="materia_id" name="materia_id" required>
+                    <option value="">-- Seleccione Materia --</option>
+                    {% for materia in materias %}
+                        <option value="{{ materia.id }}">{{ materia.codigo }} - {{ materia.nombre }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div>
+                <label for="profesor_id">Profesor:</label>
+                 <select id="profesor_id" name="profesor_id" required>
+                    <option value="">-- Seleccione Profesor --</option>
+                    {% for profesor in profesores %}
+                        <option value="{{ profesor.id }}">{{ profesor.nombre_completo }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div>
+                <label for="periodo">Periodo:</label>
+                <input type="text" id="periodo" name="periodo" required placeholder="Ej: 2025-1">
+            </div>
+            <div>
+                <label for="cupo_maximo">Cupo Máximo:</label>
+                <input type="number" id="cupo_maximo" name="cupo_maximo" required>
+            </div>
+            <div>
+                <label for="dias_clase">Días de Clase:</label>
+                <input type="text" id="dias_clase" name="dias_clase" placeholder="Ej: Lunes, Miércoles">
+            </div>
+            <div>
+                <label for="horario">Horario:</label>
+                <input type="text" id="horario" name="horario" placeholder="Ej: 08:00-10:00">
+            </div>
+            <div>
+                <label for="aula">Aula:</label>
+                <input type="text" id="aula" name="aula">
+            </div>
+            <button type="submit">Guardar Curso</button>
+        </form>
+    </div>
+</body>
+</html>

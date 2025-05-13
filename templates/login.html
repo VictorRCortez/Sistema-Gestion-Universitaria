@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="es">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Login - Gestión Universitaria</title>
+		<link
+			rel="stylesheet"
+			href="{{ url_for('static', filename='css/style.css') }}"
+		/>
+	</head>
+	<body>
+		<div class="container">
+			<h2 class="titulo_centrado">Iniciar Sesión</h2>
+			<form method="POST" action="{{ url_for('auth.login') }}">
+				<div>
+					<label for="email">Correo Electrónico:</label>
+					<input type="email" id="email" name="email" required />
+				</div>
+				<div>
+					<label for="contrasena">Contraseña:</label>
+					<input type="password" id="contrasena" name="contrasena" required />
+				</div>
+				{% if error %}
+				<p class="error">{{ error }}</p>
+				{% endif %}
+				<button type="submit">Entrar</button>
+			</form>
+		</div>
+	</body>
+</html>

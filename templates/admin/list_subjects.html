@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestionar Materias - Gestión Universitaria</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h2>Gestionar Materias</h2>
+        <nav>
+            <a href="{{ url_for('admin.admin_dashboard') }}">Volver al Dashboard</a>
+            <a href="{{ url_for('admin.admin_save_subject') }}">Crear Nueva Materia</a>
+            <a href="{{ url_for('auth.logout') }}">Cerrar Sesión</a>
+        </nav>
+        <hr>
+        {% if materias %}
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Código</th>
+                        <th>Nombre</th>
+                        <th>Créditos</th>
+                        <th>Descripción</th>
+                        <th>Acciones</th> {# Columna de Acciones #}
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for materia in materias %}
+                        <tr>
+                            <td data-label="ID">{{ materia.id }}</td>
+                            <td data-label="Código">{{ materia.codigo }}</td>
+                            <td data-label="Nombre">{{ materia.nombre }}</td>
+                            <td data-label="Créditos">{{ materia.creditos }}</td>
+                            <td data-label="Descripción">{{ materia.descripcion if materia.descripcion is not none else 'N/A' }}</td>
+                            <td data-label="Acciones">
+                                {# Añadir enlace para Editar #}
+                                <a href="{{ url_for('admin.admin_save_subject', id=materia.id) }}">Editar</a>
+                                </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <p>No hay materias registradas.</p>
+        {% endif %}
+    </div>
+</body>
+</html>

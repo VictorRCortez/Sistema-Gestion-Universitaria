@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Asignar Calificación - Gestión Universitaria</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h2>Asignar Calificación</h2>
+        <p>Asignando calificación para la inscripción ID: {{ inscripcion_id }}</p>
+
+        <form method="POST" action="{{ url_for('professor.professor_assign_grade', inscripcion_id=inscripcion_id) }}">
+            <div>
+                <label for="calificacion">Calificación (0-10):</label>
+                <input type="number" id="calificacion" name="calificacion" step="0.01" min="0" max="10" required>
+            </div>
+             {% if error %}
+                <p class="error">{{ error }}</p>
+            {% endif %}
+            <button type="submit">Guardar Calificación</button>
+        </form>
+        <p><a href="{{ url_for('professor.professor_dashboard') }}">Cancelar y Volver</a></p>
+    </div>
+</body>
+</html>

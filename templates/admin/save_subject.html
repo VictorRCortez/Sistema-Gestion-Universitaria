@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guardar Materia - Gestión Universitaria</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h2>Guardar Materia</h2>
+        <nav>
+            <a href="{{ url_for('admin.admin_list_subjects') }}">Volver a Materias</a>
+            <a href="{{ url_for('auth.logout') }}">Cerrar Sesión</a>
+        </nav>
+        <hr>
+        <form method="POST" action="{{ url_for('admin.admin_save_subject') }}">
+            {# Campo oculto para el ID de la materia. Necesario para actualizar. #}
+            {# Usar subject_id_from_url que viene de la ruta GET, o materia.id si se implementa la carga de datos #}
+            <input type="hidden" name="id" value="{{ subject_id_from_url if subject_id_from_url is not none else (materia.id if materia else '') }}">
+
+            <div>
+                <label for="codigo">Código:</label>
+                {# Para edición, podrías pre-llenar con materia.codigo si materia existe #}
+                <input type="text" id="codigo" name="codigo" value="{{ materia.codigo if materia else '' }}" required>
+            </div>
+            <div>
+                <label for="nombre">Nombre:</label>
+                 {# Para edición, podrías pre-llenar con materia.nombre si materia existe #}
+                <input type="text" id="nombre" name="nombre" value="{{ materia.nombre if materia else '' }}" required>
+            </div>
+            <div>
+                <label for="creditos">Créditos:</label>
+                 {# Para edición, podrías pre-llenar con materia.creditos si materia existe #}
+                <input type="number" id="creditos" name="creditos" value="{{ materia.creditos if materia else '' }}" required>
+            </div>
+            <div>
+                <label for="descripcion">Descripción:</label>
+                 {# Para edición, podrías pre-llenar con materia.descripcion si materia existe #}
+                <textarea id="descripcion" name="descripcion">{{ materia.descripcion if materia and materia.descripcion is not none else '' }}</textarea>
+            </div>
+            <button type="submit">Guardar Materia</button>
+        </form>
+    </div>
+</body>
+</html>

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Estudiantes del Curso - Gestión Universitaria</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h2>Estudiantes en el Curso: {{ curso.materia if curso else 'N/A' }}</h2>
+        <nav>
+            <a href="{{ url_for('professor.professor_dashboard') }}">Volver al Dashboard</a>
+            <a href="{{ url_for('auth.logout') }}">Cerrar Sesión</a>
+        </nav>
+        <hr>
+        {% if estudiantes %}
+            <table>
+                <thead>
+                    <tr>
+                        <th>Matrícula</th>
+                        <th>Nombre</th>
+                        <th>Apellido</th>
+                        <th>Carrera</th>
+                        <th>Fecha Inscripción</th>
+                        <th>Calificación</th>
+                        <th>Acción</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for estudiante in estudiantes %}
+                        <tr>
+                            <td data-label="Matrícula">{{ estudiante.num_matricula }}</td>
+                            <td data-label="Nombre">{{ estudiante.nombre }}</td>
+                            <td data-label="Apellido">{{ estudiante.apellido }}</td>
+                            <td data-label="Carrera">{{ estudiante.carrera }}</td>
+                            <td data-label="Fecha Inscripción">{{ estudiante.fecha_inscripcion }}</td>
+                            <td data-label="Calificación">{{ estudiante.calificacion if estudiante.calificacion is not none else 'N/A' }}</td>
+                            <td data-label="Acción">
+                                <a href="{{ url_for('professor.professor_assign_grade', inscripcion_id=estudiante.inscripcion_id) }}">Asignar Calificación</a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <p>No hay estudiantes inscritos en este curso.</p>
+        {% endif %}
+    </div>
+</body>
+</html>

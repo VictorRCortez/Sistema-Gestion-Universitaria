@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cursos Disponibles - Gestión Universitaria</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h2>Cursos Disponibles para Inscripción</h2>
+        <nav>
+            <a href="{{ url_for('student.student_dashboard') }}">Volver al Dashboard</a>
+            <a href="{{ url_for('auth.logout') }}">Cerrar Sesión</a>
+        </nav>
+        <hr>
+        {% if cursos %}
+            <table>
+                <thead>
+                    <tr>
+                        <th>Código</th>
+                        <th>Materia</th>
+                        <th>Créditos</th>
+                        <th>Profesor</th>
+                        <th>Periodo</th>
+                        <th>Horario</th>
+                        <th>Aula</th>
+                        <th>Cupo</th>
+                        <th>Inscritos</th>
+                        <th>Acción</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for curso in cursos %}
+                        <tr>
+                            <td data-label="Código">{{ curso.codigo }}</td>
+                            <td data-label="Materia">{{ curso.materia }}</td>
+                            <td data-label="Créditos">{{ curso.creditos }}</td>
+                            <td data-label="Profesor">{{ curso.profesor }}</td>
+                            <td data-label="Periodo">{{ curso.periodo }}</td>
+                            <td data-label="Horario">{{ curso.dias_clase }} {{ curso.horario }}</td>
+                            <td data-label="Aula">{{ curso.aula }}</td>
+                            <td data-label="Cupo">{{ curso.cupo_maximo }}</td>
+                            <td data-label="Inscritos">{{ curso.inscritos }}</td>
+                            <td data-label="Acción">
+                                {% if curso.inscritos < curso.cupo_maximo %}
+                                <form method="POST" action="{{ url_for('student.student_enroll_course', curso_id=curso.id) }}">
+                                    <button type="submit">Inscribirse</button>
+                                </form>
+                                {% else %}
+                                    <span class="full-course">Cupo Completo</span>
+                                {% endif %}
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <p>No hay cursos disponibles en este momento.</p>
+        {% endif %}
+    </div>
+</body>
+</html>

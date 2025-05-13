@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Anuncios - Gestión Universitaria</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h2>Anuncios Recientes</h2>
+        <nav>
+            <a href="{{ url_for('auth.logout') }}">Cerrar Sesión</a>
+            {% if session.get('rol') == 'admin' %}
+                <a href="{{ url_for('admin.admin_dashboard') }}">Dashboard Admin</a>
+            {% elif session.get('rol') == 'estudiante' %}
+                <a href="{{ url_for('student.student_dashboard') }}">Dashboard Estudiante</a>
+            {% elif session.get('rol') == 'profesor' %}
+                <a href="{{ url_for('professor.professor_dashboard') }}">Dashboard Profesor</a>
+            {% endif %}
+             {% if session.get('rol') == 'admin' %}
+                {# CORRECCIÓN: Usar el nombre correcto del endpoint del Blueprint #}
+                <a href="{{ url_for('announcements.admin_create_announcement') }}">Crear Anuncio</a>
+            {% endif %}
+        </nav>
+        <hr>
+        {% if anuncios %}
+            {% for anuncio in anuncios %}
+                <div class="announcement">
+                    <h3>{{ anuncio.titulo }}</h3>
+                    <p>{{ anuncio.contenido }}</p>
+                    <small>Publicado el: {{ anuncio.fecha_publicacion }} por {{ anuncio.autor }} ({{ anuncio.rol }})</small>
+                </div>
+            {% endfor %}
+        {% else %}
+            <p>No hay anuncios disponibles.</p>
+        {% endif %}
+    </div>
+</body>
+</html>

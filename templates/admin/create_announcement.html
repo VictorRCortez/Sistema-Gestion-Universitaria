@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crear Anuncio - Gestión Universitaria</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h2>Crear Nuevo Anuncio</h2>
+        <nav>
+            <a href="{{ url_for('announcements.list_announcements') }}">Volver a Anuncios</a>
+            <a href="{{ url_for('admin.admin_dashboard') }}">Dashboard Admin</a>
+            <a href="{{ url_for('auth.logout') }}">Cerrar Sesión</a>
+        </nav>
+        <hr>
+        {# CORRECCIÓN: Usar el nombre correcto del endpoint del Blueprint en la acción del formulario #}
+        <form method="POST" action="{{ url_for('announcements.admin_create_announcement') }}">
+            <div>
+                <label for="titulo">Título:</label>
+                <input type="text" id="titulo" name="titulo" required>
+            </div>
+            <div>
+                <label for="contenido">Contenido:</label>
+                <textarea id="contenido" name="contenido" rows="10" required></textarea>
+            </div>
+            <button type="submit">Publicar Anuncio</button>
+        </form>
+    </div>
+</body>
+</html>

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard Estudiante - Gestión Universitaria</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h2>Dashboard de Estudiante</h2>
+        <p>Bienvenido, {{ nombre }} {{ apellido }}.</p>
+        <nav>
+            <a href="{{ url_for('announcements.list_announcements') }}">Ver Anuncios</a>
+            <a href="{{ url_for('student.student_list_courses') }}">Inscribirse a Cursos</a>
+            <a href="{{ url_for('auth.logout') }}">Cerrar Sesión</a>
+        </nav>
+        <hr>
+        <h3>Mis Cursos Inscritos</h3>
+        {% if cursos %}
+            <table>
+                <thead>
+                    <tr>
+                        <th>Código</th>
+                        <th>Materia</th>
+                        <th>Créditos</th>
+                        <th>Profesor</th>
+                        <th>Periodo</th>
+                        <th>Horario</th>
+                        <th>Aula</th>
+                        <th>Inscrito el</th>
+                        <th>Calificación</th>
+                        <th>Acción</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for curso in cursos %}
+                        <tr>
+                            <td data-label="Código">{{ curso.codigo }}</td>
+                            <td data-label="Materia">{{ curso.materia }}</td>
+                            <td data-label="Créditos">{{ curso.creditos }}</td>
+                            <td data-label="Profesor">{{ curso.profesor }}</td>
+                            <td data-label="Periodo">{{ curso.periodo }}</td>
+                            <td data-label="Horario">{{ curso.dias_clase }} {{ curso.horario }}</td>
+                            <td data-label="Aula">{{ curso.aula }}</td>
+                            <td data-label="Inscrito el">{{ curso.fecha_inscripcion }}</td>
+                            <td data-label="Calificación">{{ curso.calificacion if curso.calificacion is not none else 'N/A' }}</td>
+                            <td data-label="Acción">
+                                {# Usar clase y data-attribute para confirmación JS #}
+                                <form method="POST" action="{{ url_for('student.student_drop_course', inscripcion_id=curso.inscripcion_id) }}" class="js-confirm-form" data-confirm-message="¿Estás seguro de dar de baja este curso?">
+                                    <button type="submit">Dar de Baja</button>
+                                </form>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <p>No estás inscrito en ningún curso.</p>
+        {% endif %}
+    </div>
+    {# Incluir el archivo JavaScript #}
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+</html>

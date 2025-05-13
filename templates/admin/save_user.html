@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guardar Usuario - Gestión Universitaria</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h2>Guardar Usuario</h2>
+        <nav>
+            <a href="{{ url_for('admin.admin_list_users') }}">Volver a Usuarios</a>
+            <a href="{{ url_for('auth.logout') }}">Cerrar Sesión</a>
+        </nav>
+        <hr>
+        <form method="POST" action="{{ url_for('admin.admin_save_user') }}">
+            <div>
+                <label for="nombre">Nombre:</label>
+                <input type="text" id="nombre" name="nombre" required>
+            </div>
+            <div>
+                <label for="apellido">Apellido:</label>
+                <input type="text" id="apellido" name="apellido" required>
+            </div>
+            <div>
+                <label for="email">Correo Electrónico:</label>
+                <input type="email" id="email" name="email" required>
+            </div>
+             <div>
+                <label for="contrasena">Contraseña:</label>
+                <input type="password" id="contrasena" name="contrasena">
+            </div>
+            <div>
+                <label for="rol">Rol:</label>
+                <select id="rol" name="rol" required onchange="toggleRoleFields()">
+                    <option value="">-- Seleccione Rol --</option>
+                    <option value="estudiante">Estudiante</option>
+                    <option value="profesor">Profesor</option>
+                    <option value="admin">Admin</option>
+                </select>
+            </div>
+
+            <div id="estudiante_fields" style="display: none;">
+                <h3>Datos de Estudiante</h3>
+                <div>
+                    <label for="num_matricula">Número de Matrícula:</label>
+                    <input type="text" id="num_matricula" name="num_matricula">
+                </div>
+                <div>
+                    <label for="carrera">Carrera:</label>
+                    <input type="text" id="carrera" name="carrera">
+                </div>
+                <div>
+                    <label for="semestre">Semestre:</label>
+                    <input type="number" id="semestre" name="semestre">
+                </div>
+            </div>
+
+            <div id="profesor_fields" style="display: none;">
+                 <h3>Datos de Profesor</h3>
+                <div>
+                    <label for="num_empleado">Número de Empleado:</label>
+                    <input type="text" id="num_empleado" name="num_empleado">
+                </div>
+                <div>
+                    <label for="departamento">Departamento:</label>
+                    <input type="text" id="departamento" name="departamento">
+                </div>
+                <div>
+                    <label for="titulo">Título:</label>
+                    <input type="text" id="titulo" name="titulo">
+                </div>
+            </div>
+
+            <button type="submit">Guardar Usuario</button>
+        </form>
+    </div>
+
+    <script>
+        // Función simple para mostrar/ocultar campos según el rol seleccionado
+        function toggleRoleFields() {
+            const rol = document.getElementById('rol').value;
+            document.getElementById('estudiante_fields').style.display = (rol === 'estudiante') ? 'block' : 'none';
+            document.getElementById('profesor_fields').style.display = (rol === 'profesor') ? 'block' : 'none';
+        }
+
+        // Ejecutar al cargar la página para el caso de edición (si hubiera datos precargados)
+        // toggleRoleFields(); // Descomentar si se implementa el caso de edición
+    </script>
+</body>
+</html>

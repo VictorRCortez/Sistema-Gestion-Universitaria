@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestionar Usuarios - Gestión Universitaria</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h2>Gestionar Usuarios</h2>
+        <nav>
+            <a href="{{ url_for('admin.admin_dashboard') }}">Volver al Dashboard</a>
+            <a href="{{ url_for('admin.admin_save_user') }}">Crear Nuevo Usuario</a>
+            <a href="{{ url_for('auth.logout') }}">Cerrar Sesión</a>
+        </nav>
+        <hr>
+        {% if usuarios %}
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Nombre</th>
+                        <th>Apellido</th>
+                        <th>Email</th>
+                        <th>Rol</th>
+                        <th>Activo</th>
+                        <th>Fecha Registro</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for usuario in usuarios %}
+                        <tr>
+                            <td data-label="ID">{{ usuario.id }}</td>
+                            <td data-label="Nombre">{{ usuario.nombre }}</td>
+                            <td data-label="Apellido">{{ usuario.apellido }}</td>
+                            <td data-label="Email">{{ usuario.email }}</td>
+                            <td data-label="Rol">{{ usuario.rol }}</td>
+                            <td data-label="Activo">{{ 'Sí' if usuario.activo else 'No' }}</td>
+                            <td data-label="Fecha Registro">{{ usuario.fecha_registro }}</td>
+                            <td data-label="Acciones">
+                                {% if usuario.activo %}
+                                    {# Usar clase y data-attribute para confirmación JS #}
+                                    <form method="POST" action="{{ url_for('admin.admin_toggle_user_status', user_id=usuario.id, status=0) }}" style="display:inline;" class="js-confirm-form" data-confirm-message="¿Estás seguro de deshabilitar a este usuario?">
+                                        <button type="submit">Deshabilitar</button>
+                                    </form>
+                                {% else %}
+                                    {# Usar clase y data-attribute para confirmación JS #}
+                                    <form method="POST" action="{{ url_for('admin.admin_toggle_user_status', user_id=usuario.id, status=1) }}" style="display:inline;" class="js-confirm-form" data-confirm-message="¿Estás seguro de habilitar a este usuario?">
+                                        <button type="submit">Habilitar</button>
+                                    </form>
+                                {% endif %}
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <p>No hay usuarios registrados.</p>
+        {% endif %}
+    </div>
+    {# Incluir el archivo JavaScript #}
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+</html>

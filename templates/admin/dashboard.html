@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard Admin - Gestión Universitaria</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h2>Dashboard de Administrador</h2>
+        <p>Bienvenido, {{ nombre }} {{ apellido }}.</p>
+        <nav>
+            <a href="{{ url_for('announcements.list_announcements') }}">Ver Anuncios</a>
+            <a href="{{ url_for('admin.admin_list_users') }}">Gestionar Usuarios</a>
+            <a href="{{ url_for('admin.admin_list_subjects') }}">Gestionar Materias</a>
+            <a href="{{ url_for('admin.admin_save_course') }}">Crear Curso</a> <a href="{{ url_for('auth.logout') }}">Cerrar Sesión</a>
+        </nav>
+        <hr>
+        <p>Desde aquí puedes administrar usuarios, materias, cursos y anuncios.</p>
+    </div>
+</body>
+</html>
