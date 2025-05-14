@@ -1,57 +1,69 @@
 <!DOCTYPE html>
 <html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard Profesor - Gestión Universitaria</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
-</head>
-<body>
-    <div class="container">
-        <h2>Dashboard de Profesor</h2>
-        <p>Bienvenido, {{ nombre }} {{ apellido }}.</p>
-        <nav>
-            <a href="{{ url_for('announcements.list_announcements') }}">Ver Anuncios</a>
-            <a href="{{ url_for('auth.logout') }}">Cerrar Sesión</a>
-        </nav>
-        <hr>
-        <h3>Cursos que Impartes</h3>
-        {% if cursos %}
-            <table>
-                <thead>
-                    <tr>
-                        <th>Código</th>
-                        <th>Materia</th>
-                        <th>Créditos</th>
-                        <th>Periodo</th>
-                        <th>Horario</th>
-                        <th>Aula</th>
-                        <th>Cupo Máximo</th>
-                        <th>Estudiantes Inscritos</th>
-                        <th>Acción</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for curso in cursos %}
-                        <tr>
-                            <td data-labe="Código">{{ curso.codigo }}</td>
-                            <td data-label="Materia">{{ curso.materia }}</td>
-                            <td data-label="Créditos">{{ curso.creditos }}</td>
-                            <td data-label="Periodo">{{ curso.periodo }}</td>
-                            <td data-label="Horario">{{ curso.dias_clase }} {{ curso.horario }}</td>
-                            <td data-label="Aula">{{ curso.aula }}</td>
-                            <td data-label="Cupo Máximo">{{ curso.cupo_maximo }}</td>
-                            <td data-label="Estudiantes Inscritos">{{ curso.estudiantes_inscritos }}</td>
-                            <td data-label="Acción">
-                                <a href="{{ url_for('professor.professor_course_students', curso_id=curso.id) }}">Ver Estudiantes</a>
-                            </td>
-                        </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
-        {% else %}
-            <p>No tienes cursos asignados en este momento.</p>
-        {% endif %}
-    </div>
-</body>
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Dashboard Profesor - Gestión Universitaria</title>
+		<link
+			rel="stylesheet"
+			href="{{ url_for('static', filename='css/style.css') }}"
+		/>
+	</head>
+	<body>
+		<div class="container">
+			<h2>Dashboard de Profesor</h2>
+			<p>Bienvenido, {{ nombre }} {{ apellido }}.</p>
+			<nav>
+				<a href="{{ url_for('announcements.list_announcements') }}"
+					>Ver Anuncios</a
+				>
+				<a href="{{ url_for('auth.main') }}">Cerrar Sesión</a>
+			</nav>
+			<hr />
+			<h3>Cursos que Impartes</h3>
+			{% if cursos %}
+			<table>
+				<thead>
+					<tr>
+						<th>Código</th>
+						<th>Materia</th>
+						<th>Créditos</th>
+						<th>Periodo</th>
+						<th>Horario</th>
+						<th>Aula</th>
+						<th>Cupo Máximo</th>
+						<th>Estudiantes Inscritos</th>
+						<th>Acción</th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for curso in cursos %}
+					<tr>
+						<td data-labe="Código">{{ curso.codigo }}</td>
+						<td data-label="Materia">{{ curso.materia }}</td>
+						<td data-label="Créditos">{{ curso.creditos }}</td>
+						<td data-label="Periodo">{{ curso.periodo }}</td>
+						<td data-label="Horario">
+							{{ curso.dias_clase }} {{ curso.horario }}
+						</td>
+						<td data-label="Aula">{{ curso.aula }}</td>
+						<td data-label="Cupo Máximo">{{ curso.cupo_maximo }}</td>
+						<td data-label="Estudiantes Inscritos">
+							{{ curso.estudiantes_inscritos }}
+						</td>
+						<td data-label="Acción">
+							<a
+								href="{{ url_for('professor.professor_course_students', curso_id=curso.id) }}"
+								>Ver Estudiantes</a
+							>
+						</td>
+					</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+			{% else %}
+			<p>No tienes cursos asignados en este momento.</p>
+			{% endif %}
+		</div>
+	</body>
 </html>

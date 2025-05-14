@@ -5,8 +5,8 @@ DB_CONFIG = {
     'driver': '{ODBC Driver 17 for SQL Server}',
     'server': 'localhost', # Tu nombre/dirección del servidor MSSQL
     'database': 'universidad_gestion_db', # Nombre de la base de datos
-    'uid': 'prueba', # Nombre de usuario
-    'pwd': 'prueba1234567P'  # Contraseña
+    'uid': 'sa', # Nombre de usuario
+    'pwd': 'TuPassword123*'  # Contraseña
 }
 
 # Función para obtener una conexión a la base de datos
